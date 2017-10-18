@@ -1,4 +1,5 @@
-
+#include<unistd.h>
+#include<stdio.h>
 #ifndef RAJDEEP_H
 #define RAJDEEP_H
 void printLineSp(int n,char c);
@@ -40,11 +41,12 @@ void printCredits()
 {
 	//unsigned short
 	int i=0;
-	char str[50]="Created by Rajdeep Roy Chowdhury";
+	char str[]="Created by Rajdeep Roy Chowdhury";
 	while(str[i]!='\0')
 	{
-		delay();
-		printf("%c-",str[i]);
+		//delay();
+		//sleep(1);
+		printf("-%c",str[i]);
 		//putchar((int)str[i]);
 		i++;
 
