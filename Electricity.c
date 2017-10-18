@@ -16,6 +16,16 @@ void setBillingParameters()
 	fscanf(fp1,"%f",&first);
 	fscanf(fp2,"%f",&second);
 	fscanf(fp3,"%f",&third);
+	fclose(fp1);
+	fclose(fp2);
+	fclose(fp3);
+	printf("Previously, Electricity Bill was being calculate be the following parameters\n");
+	printf("\n\tFirst 100 Units @\t Rs. %.2f/Unit",first);
+	printf("\n\tThe next 100 Units @\t Rs. %.2f/Unit",second);
+	printf("\n\tThe remaining units @\t Rs. %.2f/Unit",third);
+	printLine(50);
+	printf("Do you want to update?(Y|N) ");
+	char choice=getchar();
 
 }
 void creditsAndTroubleshooting()
