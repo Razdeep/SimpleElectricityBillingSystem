@@ -5,6 +5,27 @@
 #include<string.h>
 #include"rajdeep.h"
 float first,second,third;
+void reviewDatabase()
+{
+	//Bugs to be fixed in this function
+	char temp[100];
+	int id;
+	char name[30];
+	float first,second,third,units,amount;
+	FILE *fp=fopen("data.txt","r");
+	printLine(30);
+	printf("\nID\tName\t@1st 100 units\t@Next 100 Units\t@Remaining Units\tUnits Consumed\tAmount");
+	while(fscanf(fp,"%s",&temp)!=-1)
+	{
+		if(temp=='\n')
+		printf("\n");
+		printf("\t%s",temp);
+	}
+	/*while(fscanf(fp,"%d%s%.2f%.2f%.2f%.2f%.2f",&id,&name,&first,&second,&third,&units,&amount)!=-1)
+	{
+		printf("%d\t%s\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n",id,name,first,second,third,units,amount);
+	}*/
+}
 void getch()
 {
 	int qwerty;
@@ -33,14 +54,20 @@ void loadParameters()
 }
 void calculateBill()
 {
+	int id;
+	char name[30],choice;
 	loadParameters();
 	showParameters();
 	float units=0.0,amount=0.0;
-	level:
+	printf("Enter ID ");
+	scanf("%d",&id);
+	printf("Enter name ");
+	scanf("%s",&name);
+	level1:
 	printf("Enter units of electricity consumed ");
 	scanf("%f",&units);
 	if(units<0)
-	goto level;
+	goto level1;
 	if(units>200)
 	{
 		amount=(100*first)+(100*second)+((units-200)*third);
@@ -54,6 +81,16 @@ void calculateBill()
 		amount=units*first;
 	}
 	printf("Calculated Electricity Bill is Rs %.2f/-",amount);
+	printf("\n\nDo you want to save it? (Y|N) ");
+	scanf(" %c",&choice);
+	if(choice=='Y'||choice=='y')
+	{
+		FILE *fp=fopen("data.txt","a+");
+		if(fprintf(fp,"%d\t%s\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n",id,name,first,second,third,units,amount)>0)
+		printf("Saved Successfully");
+		else printf("Oops, faced some errors while saving. Call Rajdeep to fix this issue.");
+		fclose(fp);
+	}
 	getch();
 }
 void setBillingParameters()
@@ -111,7 +148,7 @@ void printMenu()
 		printf("\n");
 	}
 	printTitle("\tElectricity Billing System");
-	printf("1.\tCalculate Bill\n2.\tSet Billing Parameters\n3.\tCredits And Troubleshooting\n4.\tExit");
+	printf("1.\tCalculate Bill\n2.\tSet Billing Parameters\n3.\tCredits And Troubleshooting\n4.\tReview Database\n5.\tExit");
 
 	printf("\n\nEnter Choice ");
 	scanf("%d",&ch);
@@ -127,6 +164,9 @@ void printMenu()
 		creditsAndTroubleshooting();
 		break;
 		case 4:
+		reviewDatabase();
+		break;
+		case 5:
 		exit(0);
 		break;
 		default:
