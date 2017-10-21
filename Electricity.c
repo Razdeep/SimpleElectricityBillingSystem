@@ -5,26 +5,24 @@
 #include<string.h>
 #include"rajdeep.h"
 float first,second,third;
+void getch();
 void reviewDatabase()
 {
-	//Bugs to be fixed in this function
 	char temp[100];
 	int id;
 	char name[30];
 	float first,second,third,units,amount;
 	FILE *fp=fopen("data.txt","r");
 	printLine(30);
+	printf("\t\tDisplaying previously saved records... :)\n");
+	printLine(100);
 	printf("\nID\tName\t@1st 100 units\t@Next 100 Units\t@Remaining Units\tUnits Consumed\tAmount");
-	while(fscanf(fp,"%s",&temp)!=-1)
+	printLine(100);
+	while(fscanf(fp,"%d%s%f%f%f%f%f",&id,name,&first,&second,&third,&units,&amount)!=-1)
 	{
-		if(temp=='\n')
-		printf("\n");
-		printf("\t%s",temp);
+		printf("\n%d\t%s\t%.2f\t\t%.2f\t\t%.2f\t\t\t%.2f\t\t%.2f",id,name,first,second,third,units,amount);
 	}
-	/*while(fscanf(fp,"%d%s%.2f%.2f%.2f%.2f%.2f",&id,&name,&first,&second,&third,&units,&amount)!=-1)
-	{
-		printf("%d\t%s\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n",id,name,first,second,third,units,amount);
-	}*/
+	getch();
 }
 void getch()
 {
@@ -62,7 +60,7 @@ void calculateBill()
 	printf("Enter ID ");
 	scanf("%d",&id);
 	printf("Enter name ");
-	scanf("%s",&name);
+	scanf("%s",name);
 	level1:
 	printf("Enter units of electricity consumed ");
 	scanf("%f",&units);
@@ -127,6 +125,8 @@ void setBillingParameters()
 void creditsAndTroubleshooting()
 {
 	printCredits();
+	printf("\nFor support email me at rrajdeeproychowdhury@gmail.com");
+	getch();
 }
 void choiceError()
 {
