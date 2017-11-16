@@ -4,24 +4,106 @@
 #include<stdlib.h>
 #include<string.h>
 #include"rajdeep.h"
+/*#include<ctype.h>
+int strcmpi(char *str,char *temp)
+{
+	return strcmp(tolwr(str),tolwr(temp));
+}*/
+struct Record{
+	int id;
+	char name[30];
+	float first;
+	float second;
+	float third;
+	float units;
+	float amount;
+};
 float first,second,third;
 void getch();
 void reviewDatabase()
 {
+	struct Record record[50];
+	struct Record tmp;
 	char temp[100];
-	int id;
+	int id,i,ch;
 	char name[30];
 	float first,second,third,units,amount;
 	FILE *fp=fopen("data.txt","r");
+	//Reading from file
+	for(i=0;;i++)
+	{
+		if(fscanf(fp,"%d%s%f%f%f%f%f",&record[i].id,record[i].name,&record[i].first,&record[i].second,&record[i].third,&record[i].units,&record[i].amount)==-1)
+		break;
+	}
+	int number=i;
+	printf("\n\t1. Sort by Name\n\t2. Sort by Amount or Units Consumed \n\t3. Sort by ID\n\t4. Sort by Input");
+	fflush(stdin);
+	printf("\nEnter Choice ");
+	scanf("%d",&ch);
 	printLine(30);
 	printf("\t\tDisplaying previously saved records... :)\n");
 	printLine(100);
 	printf("\nID\tName\t@1st 100 units\t@Next 100 Units\t@Remaining Units\tUnits Consumed\tAmount");
 	printLine(100);
-	while(fscanf(fp,"%d%s%f%f%f%f%f",&id,name,&first,&second,&third,&units,&amount)!=-1)
+	/*while(fscanf(fp,"%d%s%f%f%f%f%f",&record.id,record.name,&record.first,&record.second,&record.third,&record.units,&record.amount)!=-1)
 	{
 		printf("\n%d\t%s\t%.2f\t\t%.2f\t\t%.2f\t\t\t%.2f\t\t%.2f",id,name,first,second,third,units,amount);
+	}*/
+	if(ch==1)
+	{
+		//Sorting by Name
+		for(int j=0;j<number-1;j++)
+		{
+		for(i=0;i<number-1;i++)
+		{
+				if(strcmp(record[i].name,record[i+1].name)==1)
+				{
+					tmp=record[i];
+					record[i]=record[i+1];
+					record[i+1]=tmp;
+				}
+			}
+		}
 	}
+	else if(ch==2)
+	{
+		//Sorting by Amount or Units Consumed
+		for(int j=0;j<number-1;j++)
+		{
+		for(i=0;i<number-1;i++)
+		{
+			if(record[i].amount>record[i+1].amount)
+			{
+				tmp=record[i];
+				record[i]=record[i+1];
+				record[i+1]=tmp;
+			}
+		}
+		}
+	}
+	else if(ch==3)
+	{
+		//sort by ID
+		for(int j=0;j<number-1;j++)
+		{
+		for(i=0;i<number-1;i++)
+		{
+			if(record[i].id>record[i+1].id)
+			{
+				tmp=record[i];
+				record[i]=record[i+1];
+				record[i+1]=tmp;
+			}
+		}
+		}
+	}
+
+	//printing the records list
+	for(i=0;i<number;i++)
+	{
+		printf("\n%d\t%s\t%.2f\t\t%.2f\t\t%.2f\t\t\t%.2f\t\t%.2f",record[i].id,record[i].name,record[i].first,record[i].second,record[i].third,record[i].units,record[i].amount);
+	}
+
 	getch();
 }
 void getch()
