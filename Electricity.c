@@ -5,6 +5,22 @@
 #include<string.h>
 #include"rajdeep.h"
 
+#define LINUX
+
+#ifdef LINUX
+void getch()
+{
+	int qwerty;
+	printf("\n\nSince getch() is not included in standard libraries of C in Linux,\n Hit 0 and press Enter to continue ");
+	scanf("%d",&qwerty);
+}
+//int strcmpi(char*,char*);
+#endif
+
+#ifndef LINUX
+#include<conio.h>
+#endif
+
 struct Record{
 	int id;
 	char name[30];
@@ -14,16 +30,9 @@ struct Record{
 	float units;
 	float amount;
 };
+
 float first,second,third;
-void getch();
 
-
-void getch()
-{
-	int qwerty;
-	printf("\n\nSince getch() is not included in standard libraries of C in Linux,\n Hit 0 and press Enter to continue ");
-	scanf("%d",&qwerty);
-}
 void showParameters()
 {
 	printf("\n Electricity Bill is being calculate be the following parameters\n");
